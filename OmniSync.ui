@@ -140,8 +140,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>771</width>
-           <height>501</height>
+           <width>825</width>
+           <height>775</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -194,6 +194,40 @@
             <property name="sizeConstraint">
              <enum>QLayout::SetMinAndMaxSize</enum>
             </property>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;OmniSync&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;version 1.0.0&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Cloud-based file synchronization client for Google Drive and OneDrive&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;This program is free software and comes with ABSOLUTELY NO WARRANTY.&lt;br/&gt;You can redistribute it and/or modify it under the terms of the GNU General&lt;br/&gt;Public License as published by the Free Software Foundation, either&lt;br/&gt;version 3 of the License, or (at your option) any later version.&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;You should have received a copy of the GNU General Public License&lt;br/&gt;along with this program. If not, see &lt;a href=&quot;http://www.gnu.org/licenses/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;http://www.gnu.org/licenses/&lt;/span&gt;&lt;/a&gt;.&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Copyright (C) 2016 André Brait&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://github.com/andrebrait/OmniSync&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;OmniSync page at GitHub&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+              </property>
+              <property name="wordWrap">
+               <bool>false</bool>
+              </property>
+              <property name="indent">
+               <number>0</number>
+              </property>
+              <property name="openExternalLinks">
+               <bool>true</bool>
+              </property>
+              <property name="textInteractionFlags">
+               <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByMouse</set>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
          </layout>
@@ -280,8 +314,6 @@
       </layout>
      </item>
     </layout>
-    <zorder>horizontalLayoutWidget</zorder>
-    <zorder>tabWidget</zorder>
    </widget>
   </widget>
  </widget>
