@@ -79,9 +79,9 @@
         <locale language="English" country="UnitedStates"/>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
-       <widget class="QWidget" name="tab_3">
+       <widget class="QWidget" name="status_tab">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -97,7 +97,7 @@
         <attribute name="title">
          <string>Status</string>
         </attribute>
-        <widget class="QProgressBar" name="progressBar">
+        <widget class="QProgressBar" name="progress_bar">
          <property name="geometry">
           <rect>
            <x>10</x>
@@ -117,7 +117,7 @@
          </property>
         </widget>
        </widget>
-       <widget class="QWidget" name="tab_4">
+       <widget class="QWidget" name="accounts_tab">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -131,7 +131,7 @@
          <string>Accounts</string>
         </attribute>
        </widget>
-       <widget class="QWidget" name="tab_5">
+       <widget class="QWidget" name="about_tab">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -301,7 +301,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="ok_button">
          <property name="locale">
           <locale language="English" country="UnitedStates"/>
          </property>
@@ -311,7 +311,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="apply_button">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -330,7 +330,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="cancel_button">
          <property name="locale">
           <locale language="English" country="UnitedStates"/>
          </property>
