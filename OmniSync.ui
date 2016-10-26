@@ -256,6 +256,9 @@
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
              </widget>
             </item>
             <item>
@@ -635,10 +638,10 @@
         <widget class="QWidget" name="verticalLayoutWidget_2">
          <property name="geometry">
           <rect>
-           <x>0</x>
-           <y>0</y>
-           <width>781</width>
-           <height>501</height>
+           <x>10</x>
+           <y>10</y>
+           <width>751</width>
+           <height>481</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,1">
