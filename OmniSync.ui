@@ -79,7 +79,7 @@
         <locale language="English" country="UnitedStates"/>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="status_tab">
         <property name="sizePolicy">
@@ -116,6 +116,43 @@
           <number>24</number>
          </property>
         </widget>
+        <widget class="QListView" name="listView">
+         <property name="geometry">
+          <rect>
+           <x>1</x>
+           <y>1</y>
+           <width>771</width>
+           <height>471</height>
+          </rect>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="sizeIncrement">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="baseSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>14</width>
+           <height>16</height>
+          </size>
+         </property>
+         <property name="resizeMode">
+          <enum>QListView::Fixed</enum>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="accounts_tab">
         <property name="sizePolicy">
@@ -130,6 +167,16 @@
         <attribute name="title">
          <string>Accounts</string>
         </attribute>
+        <widget class="QListView" name="listView_2">
+         <property name="geometry">
+          <rect>
+           <x>1</x>
+           <y>1</y>
+           <width>281</width>
+           <height>501</height>
+          </rect>
+         </property>
+        </widget>
        </widget>
        <widget class="QWidget" name="about_tab">
         <property name="sizePolicy">
