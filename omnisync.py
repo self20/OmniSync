@@ -17,3 +17,7 @@ if __name__ == "__main__":
     pool.start()
 
     time.sleep(5)
+
+    task_queue.trigger()
+
+    time.sleep(5)
