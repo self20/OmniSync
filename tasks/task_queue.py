@@ -8,21 +8,21 @@ class TaskQueue(Queue):
     def __init__(self):
         super().__init__(ctx=get_context())
         self.event = Event()
-        self.enable_event = False
+        self.allow_event = True
 
     def hold(self):
-        self.enable_event = True
+        self.allow_event = False
 
     def trigger(self):
-        self.enable_event = False
+        self.allow_event = True
         self.event.set()
 
     def put(self, task: Task, block=True, timeout=None):
         super().put(task, block=block, timeout=timeout)
-        if not self.enable_event:
+        if self.allow_event:
             self.event.set()
 
     def put_nowait(self, task: Task):
         super().put_nowait(task)
-        if not self.enable_event:
+        if self.allow_event:
             self.event.set()
