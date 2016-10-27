@@ -25,7 +25,7 @@ def get_credentials(account: Account = None):
         Credentials, the obtained credential.
     """
     home_dir = Path.home()
-    credential_dir = home_dir / '.omnipath' / 'gdrive'
+    credential_dir = home_dir / '.omnisync' / 'gdrive'
     if account:
         credential_dir = credential_dir / account.name
     Path.mkdir(credential_dir, exist_ok=True)
