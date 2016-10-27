@@ -15,23 +15,17 @@ class Pool:
         self.can_start = True
         self.task_queue.trigger()
 
-    def hold(self):
-        self.task_queue.hold()
-
-    def trigger(self):
-        if self.can_start:
-            self.task_queue.trigger()
-
     def set_worker_num(self, num):
         cur_num = len(self.process_list)
-        self.hold()
+        self.task_queue.hold()
         if num > cur_num:
             for i in range(0, num - cur_num):
                 self.add()
         elif num < cur_num:
             for i in reversed(range(num, cur_num)):
                 self.remove(i)
-        self.trigger()
+        if self.can_start:
+            self.task_queue.trigger()
 
     def add(self):
         worker = Worker(self.task_queue)
