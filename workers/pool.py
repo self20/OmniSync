@@ -9,23 +9,33 @@ class Pool:
         self.process_list = []  # type: List[multiprocessing.Process]
         self.worker_list = []  # type: List[Worker]
         self.task_queue = task_queue
+        self.can_start = False
+
+    def start(self):
+        self.can_start = True
+        self.task_queue.trigger()
+
+    def hold(self):
+        self.task_queue.hold()
+
+    def trigger(self):
+        if self.can_start:
+            self.task_queue.trigger()
 
     def set_worker_num(self, num):
         cur_num = len(self.process_list)
+        self.hold()
         if num > cur_num:
-            self.task_queue.hold()
             for i in range(0, num - cur_num):
                 self.add()
-            self.task_queue.trigger()
         elif num < cur_num:
-            self.task_queue.hold()
             for i in reversed(range(num, cur_num)):
                 self.remove(i)
-            self.task_queue.trigger()
+        self.trigger()
 
     def add(self):
         worker = Worker(self.task_queue)
-        process = multiprocessing.Process(worker.execute)
+        process = multiprocessing.Process(target=worker.execute)
         process.daemon = True
         self.worker_list.append(worker)
         self.process_list.append(process)
