@@ -10,11 +10,13 @@ class OperationType(Enum):
 
 
 class Account:
-    def __init__(self, name: str, email: str, directory: Path):
+    def __init__(self, name: str, email: str, local_root: Path):
         self.name = name
         self.email = email
-        self.directory = directory
+        self.local_root = local_root
         self.selective = {"enabled": False, "new_partial": False, "tree": None}
+        self.files_table = None
+        self.checksum_function = None
         self.dic = {OperationType.download: self.download,
                     OperationType.upload: self.upload,
                     OperationType.move: self.move,
@@ -35,5 +37,11 @@ class Account:
     def remote_root(self):
         pass
 
-    def check_changes(self):
+    def check_local_changes(self):
+        pass
+
+    def check_remote_changes(self):
+        pass
+
+    def checksum_function(self, file):
         pass
