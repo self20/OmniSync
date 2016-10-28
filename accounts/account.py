@@ -16,7 +16,7 @@ class Account:
         self.local_root = local_root
         self.selective = {"enabled": False, "new_partial": False, "tree": None}
         self.files_table = None
-        self.checksum_function = None
+        self.folder_type = None
         self.dic = {OperationType.download: self.download,
                     OperationType.upload: self.upload,
                     OperationType.move: self.move,

@@ -10,7 +10,10 @@ from oauth2client.file import Storage
 
 from accounts.account import Account
 
-SCOPES = 'https://www.googleapis.com/auth/drive'
+SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.appdata',
+          'https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive.metadata',
+          'https://www.googleapis.com/auth/drive.metadata.readonly',
+          'https://www.googleapis.com/auth/drive.photos.readonly', 'https://www.googleapis.com/auth/drive.readonly']
 CLIENT_SECRET_FILE = 'client_secret.json'
 APPLICATION_NAME = 'OmniSync'
 
@@ -25,19 +28,19 @@ def get_credentials(account: Account = None):
         Credentials, the obtained credential.
     """
     home_dir = Path.home()
-    credential_dir = home_dir / '.omnisync' / 'gdrive'
-    if account:
-        credential_dir = credential_dir / account.name
+    credential_dir = home_dir / '.credentials'  # / '.omnisync' / 'gdrive'
+    # if account:
+    #    credential_dir = credential_dir / account.name
     Path.mkdir(credential_dir, exist_ok=True)
-    credential_path = os.path.join(credential_dir, account.name if account else 'temp.json')
+    credential_path = credential_dir / 'temp.json'
 
-    store = Storage(credential_path)
+    store = Storage(str(credential_path))
     credentials = store.get()
     if not credentials or credentials.invalid:
         flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
         flow.user_agent = APPLICATION_NAME
         credentials = tools.run_flow(flow, store)
-        print('Storing credentials to ' + credential_path)
+        print('Storing credentials to ' + str(credential_path))
     return credentials
 
 
@@ -52,11 +55,20 @@ def main():
     service = discovery.build('drive', 'v3', http=http)
 
     results = service.files().list(
-        pageSize=10, fields="nextPageToken, files(id, name)").execute()
+        pageSize=100, orderBy='folder,modifiedTime desc,name', q="trashed!=true",
+        fields='files(capabilities(canCopy,canEdit,canShare),fullFileExtension,id,' +
+               'lastModifyingUser(displayName,emailAddress,me),md5Checksum,mimeType,modifiedTime,name,ownedByMe,' +
+               'owners(displayName,emailAddress,me),parents,shared,sharedWithMeTime,' +
+               'sharingUser(displayName,emailAddress,me),size,version),nextPageToken', ).execute()
+
     items = results.get('files', [])
     if not items:
         print('No files found.')
     else:
         print('Files:')
         for item in items:
-            print('{0} ({1})'.format(item['name'], item['id']))
+            print(item)
+
+
+if __name__ == '__main__':
+    main()
