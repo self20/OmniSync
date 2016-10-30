@@ -4,7 +4,6 @@ import time
 from tasks.task_queue import TaskQueue
 from workers.pool import Pool
 
-
 def initialize() -> (dataset.Database, dataset.Table, TaskQueue, Pool):
     db = dataset.connect("sqlite:////home/andre/.omnisync/database.db")
     config = db.get_table('config')

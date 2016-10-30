@@ -10,4 +10,4 @@ class Task:
         self.item = item
 
     def get_operation(self):
-        return self.account.dic[self.operation_type]
+        return self.account.operation_dic[self.operation_type]

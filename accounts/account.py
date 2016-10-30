@@ -1,5 +1,6 @@
 from enum import Enum
 from pathlib import Path
+from typing import List
 
 
 class OperationType(Enum):
@@ -10,17 +11,18 @@ class OperationType(Enum):
 
 
 class Account:
-    def __init__(self, name: str, email: str, local_root: Path):
-        self.name = name
+    def __init__(self, email: str, local_root: Path):
+        self.name = None
         self.email = email
         self.local_root = local_root
         self.selective = {"enabled": False, "new_partial": False, "tree": None}
-        self.files_table = None
-        self.folder_type = None
-        self.dic = {OperationType.download: self.download,
-                    OperationType.upload: self.upload,
-                    OperationType.move: self.move,
-                    OperationType.delete: self.delete}
+        self.operation_dic = assemble_op_map(self)
+        self.folder_mime_type = None
+        self.capacity = 0
+        self.usage = 0
+        self.usage_in_drive = 0
+        self.max_upload_size = 0
+        self.connection_handler = None
 
     def download(self):
         pass
@@ -45,3 +47,17 @@ class Account:
 
     def checksum_function(self, file):
         pass
+
+    def list_all_remote_files(self) -> List:
+        pass
+
+    @staticmethod
+    def parse_user(obj, connection_handler):
+        pass
+
+
+def assemble_op_map(account: Account) -> dict:
+    return {OperationType.download: account.download,
+            OperationType.upload: account.upload,
+            OperationType.move: account.move,
+            OperationType.delete: account.delete}
