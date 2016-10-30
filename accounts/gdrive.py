@@ -1,8 +1,6 @@
 from pathlib import Path
 from typing import List
 
-from googleapiclient import errors
-
 from accounts.account import Account
 
 
@@ -19,20 +17,16 @@ class GDrive(Account):
         page_token = None
         _files = self.connection_handler.files()
         while True:
-            try:
-                files = _files.list(pageSize=100, orderBy='folder,modifiedTime desc,name',
-                                    q="trashed!=true",
-                                    fields='files(capabilities(canCopy,canEdit,canShare),fullFileExtension,id,' +
-                                           'lastModifyingUser(displayName,emailAddress,me),md5Checksum,mimeType,' +
-                                           'modifiedTime,name,ownedByMe,owners(displayName,emailAddress,me),parents,' +
-                                           'shared,sharedWithMeTime,sharingUser(displayName,emailAddress,me),size,' +
-                                           'version),nextPageToken', pageToken=page_token).execute()
-                result.extend(files)
-                page_token = files.get('nextPageToken')
-                if not page_token:
-                    break
-            except errors.HttpError as error:
-                print('An error occurred: %s' % error)
+            files = _files.list(pageSize=100, orderBy='folder,modifiedTime desc,name',
+                                q="trashed!=true",
+                                fields='files(capabilities(canCopy,canEdit,canShare),fullFileExtension,id,' +
+                                       'lastModifyingUser(displayName,emailAddress,me),md5Checksum,mimeType,' +
+                                       'modifiedTime,name,ownedByMe,owners(displayName,emailAddress,me),parents,' +
+                                       'shared,sharedWithMeTime,sharingUser(displayName,emailAddress,me),size,' +
+                                       'version),nextPageToken', pageToken=page_token).execute()
+            result.extend(files)
+            page_token = files.get('nextPageToken')
+            if not page_token:
                 break
         return result
 
