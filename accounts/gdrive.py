@@ -12,7 +12,7 @@ class GDrive(Account):
         self.export_types_map = dict()
         self.folder_mime_type = 'application/vnd.google-apps.folder'
 
-    def list_all_remote_files(self) -> List:
+    def list_all_remote_files(self) -> List[dict]:
         result = []
         page_token = None
         _files = self.connection_handler.files()
