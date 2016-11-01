@@ -33,14 +33,14 @@ class GDrive(Account):
     @staticmethod
     def parse_user(obj, connection_handler) -> Account:
         about_user_response = connection_handler.about().get(
-            fields='appInstalled,exportFormats,importFormats,kind,' +
+            fields='exportFormats,importFormats,' +
                    'maxImportSizes,maxUploadSize,storageQuota,user').execute()
 
         user = about_user_response.get('user')
 
         if not obj:
             email = user.get('emailAddress')
-            obj = GDrive(email, Path.home() / 'OmniSync' / email)
+            obj = GDrive(email, Path.home() / 'OmniSync' / 'Google Drive' / email)
 
         obj.connection_handler = connection_handler
 

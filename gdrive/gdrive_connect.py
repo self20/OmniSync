@@ -1,4 +1,9 @@
 from __future__ import print_function
+
+import os
+import shutil
+from tempfile import NamedTemporaryFile
+
 import httplib2
 
 from pathlib import Path
@@ -7,9 +12,9 @@ from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 
-from accounts.account import Account
 from accounts.gdrive import GDrive
 from errors.errors import AuthError
+from util import constants
 
 SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.appdata',
           'https://www.googleapis.com/auth/drive.file', 'https://www.googleapis.com/auth/drive.metadata',
@@ -17,7 +22,7 @@ SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/a
           'https://www.googleapis.com/auth/drive.photos.readonly', 'https://www.googleapis.com/auth/drive.readonly']
 CLIENT_SECRET_FILE = 'gdrive_id.json'
 APPLICATION_NAME = 'OmniSync'
-CREDENTIAL_DIR = Path.home() / '.omnisync' / 'auth' / 'gdrive'
+CREDENTIAL_DIR = constants.BASE_CREDENTIAL_DIR / 'gdrive'
 
 
 def authenticate(account: GDrive = None) -> GDrive:
@@ -25,7 +30,7 @@ def authenticate(account: GDrive = None) -> GDrive:
     if account:
         credential_path = CREDENTIAL_DIR / (account.email + '.json')
     else:
-        credential_path = CREDENTIAL_DIR / 'temp.json'
+        credential_path = Path(NamedTemporaryFile(delete=False).name)
 
     store = Storage(str(credential_path))
     credentials = store.get()
@@ -39,8 +44,7 @@ def authenticate(account: GDrive = None) -> GDrive:
 
     service = discovery.build('drive', 'v3', http=credentials.authorize(httplib2.Http()))
 
-    about = service.about().get(
-        fields='user(emailAddress)').execute()
+    about = service.about().get(fields='user(emailAddress)').execute()
 
     user = about.get('user')
     email = user.get('emailAddress')
@@ -49,12 +53,10 @@ def authenticate(account: GDrive = None) -> GDrive:
         raise AuthError("user mistmatch.")
 
     if not account:
-        credential_path.rename(CREDENTIAL_DIR / (email + '.json'))
+        shutil.copyfile(str(credential_path), str(CREDENTIAL_DIR / (email + '.json')))
+        os.remove(str(credential_path))
 
     account = GDrive.parse_user(account, service)
 
     return account
 
-
-if __name__ == '__main__':
-    authenticate().list_all_remote_files()

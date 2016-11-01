@@ -24,31 +24,34 @@ class Account:
         self.max_upload_size = 0
         self.connection_handler = None
 
-    def download(self):
+    def download(self, remote_id: str, path: str) -> None:
         pass
 
-    def upload(self):
+    def upload(self, parent_id: str, path: str) -> None:
         pass
 
-    def move(self):
+    def move(self, remote_id: str, new_parent_id: str) -> None:
         pass
 
-    def delete(self):
+    def delete(self, remote_id: str) -> None:
         pass
 
-    def remote_root(self):
+    def remote_root(self) -> str:
         pass
 
-    def check_local_changes(self):
+    def check_local_changes(self) -> List:
         pass
 
-    def check_remote_changes(self):
+    def check_remote_changes(self) -> List:
         pass
 
-    def checksum_function(self, file):
+    def checksum_function(self, path: str) -> str:
         pass
 
     def list_all_remote_files(self) -> List:
+        pass
+
+    def list_all_local_files(self) -> List[str]:
         pass
 
     @staticmethod
