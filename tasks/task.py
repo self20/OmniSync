@@ -1,14 +1,18 @@
-from pathlib import Path
-from typing import Union
-
-from accounts.account import Account, OperationType
+from accounts.mappings import Account, AccountFile, OperationType
 
 
 class Task:
-    def __init__(self, operation_type: OperationType, account: Account, item: Union[str, Path]):
+    def __init__(self, operation_type: OperationType, account: Account, item: AccountFile):
         self.operation_type = operation_type
         self.account = account
         self.item = item
 
-    def get_operation(self):
-        return self.account.operation_dic[self.operation_type]
+    def run(self) -> None:
+        if self.operation_type == OperationType.download:
+            pass
+        elif self.operation_type == OperationType.upload:
+            pass
+        elif self.operation_type == OperationType.delete:
+            pass
+        elif self.operation_type == OperationType.move:
+            pass

@@ -1,6 +1,5 @@
-from asyncio.queues import QueueEmpty
-
 import time
+from asyncio.queues import QueueEmpty
 
 from tasks.task import Task
 from tasks.task_queue import TaskQueue
@@ -40,11 +39,10 @@ class Worker:
         self.work()
 
     def run_task(self):
-        operation = self.task.get_operation()
         print("Worker-" + self.num + " got task of type " + self.task.operation_type + ". Starting...")
         while True:
             try:
-                operation()
+                self.task.run()
                 break
             except:
                 print("ERROR: Worker-" + self.num + " when performing task of type " + self.task.operation_type + ".")
