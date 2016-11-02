@@ -50,12 +50,12 @@ def initialize():
     GlobalAccessor.get_pool().set_worker_num(GlobalAccessor.get_max_conn().value)
 
 
-if __name__ == "__main__":
+def main():
     load_database()
     load_config()
     initialize()
 
-    session = accounts_table = GlobalAccessor.get_db_session()
+    session = GlobalAccessor.get_db_session()
 
     for account in session.query(Account):
         account.connect()
@@ -71,3 +71,7 @@ if __name__ == "__main__":
     GlobalAccessor.get_task_queue().trigger()
 
     time.sleep(5)
+
+
+if __name__ == "__main__":
+    main()
