@@ -1,14 +1,14 @@
 from __future__ import print_function
-import httplib2
 
 from pathlib import Path
+
+import httplib2
 from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 
-from accounts.account import Account
-from accounts.gdrive import GDrive
+from accounts.onedrive import OneDrive
 from errors.errors import AuthError
 
 SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.appdata',
@@ -20,7 +20,7 @@ APPLICATION_NAME = 'OmniSync'
 CREDENTIAL_DIR = Path.home() / '.omnisync' / 'auth' / 'onedrive'
 
 
-def authenticate(account: GDrive = None) -> GDrive:
+def authenticate(account: OneDrive = None) -> OneDrive:
     Path.mkdir(CREDENTIAL_DIR, parents=True, exist_ok=True)
     if account:
         credential_path = CREDENTIAL_DIR / (account.email + '.json')
@@ -44,13 +44,10 @@ def authenticate(account: GDrive = None) -> GDrive:
 
     user = about.get('user')
 
-    if account and account.ident != user.get('id'):
-        raise AuthError("user mistmatch.")
-
     if not account:
         credential_path.rename(CREDENTIAL_DIR / (user.get('emailAddress') + '.json'))
 
-    account = GDrive.parse_user(account, service)
+    account = OneDrive.parse_user(account, service)
 
     return account
 

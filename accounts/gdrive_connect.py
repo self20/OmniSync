@@ -2,11 +2,10 @@ from __future__ import print_function
 
 import os
 import shutil
+from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 import httplib2
-
-from pathlib import Path
 from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
@@ -60,3 +59,7 @@ def authenticate(account: GDrive = None) -> GDrive:
 
     return account
 
+
+if __name__ == "__main__":
+    account = authenticate()
+    account.list_all_remote_files()

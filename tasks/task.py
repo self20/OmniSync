@@ -1,10 +1,11 @@
 from pathlib import Path
+from typing import Union
 
 from accounts.account import Account, OperationType
 
 
 class Task:
-    def __init__(self, operation_type: OperationType, account: Account, item: str or Path):
+    def __init__(self, operation_type: OperationType, account: Account, item: Union[str, Path]):
         self.operation_type = operation_type
         self.account = account
         self.item = item
