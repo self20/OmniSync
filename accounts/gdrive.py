@@ -2,11 +2,24 @@ import hashlib
 from pathlib import Path
 from typing import List, Union
 
+from sqlalchemy import Column, String
+from sqlalchemy.sql.schema import ForeignKeyConstraint
+
 from accounts import gdrive_connect
 from accounts.mappings import Account
+from util import constants
 
 
 class GDrive(Account):
+    __mapper_args__ = {
+        'polymorphic_identity': 'GDrive',
+    }
+
+    __table_args__ = (ForeignKeyConstraint(['email', 'type'], ['accounts.email', 'accounts.type']),)
+
+    email = Column(String, primary_key=True)
+    type = Column(String, primary_key=True)
+
     def __init__(self, ident: str, email: str, local_root: Path):
         super().__init__(email, local_root)
         self.max_import_sizes = dict()
@@ -58,7 +71,7 @@ class GDrive(Account):
 
         if not obj:
             email = user.get('emailAddress')
-            obj = GDrive(email, Path.home() / 'OmniSync' / 'Google Drive' / email)
+            obj = GDrive(email, constants.OMNISYNC_DEF_SYNC_DIR / 'Google Drive' / email)
 
         obj.connection_handler = connection_handler
 

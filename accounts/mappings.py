@@ -1,29 +1,21 @@
-from enum import Enum
 from pathlib import Path
 from typing import List, Union
 
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql.schema import ForeignKey, Index, ForeignKeyConstraint
+from sqlalchemy.sql.schema import Index, ForeignKeyConstraint
 from sqlalchemy.sql.sqltypes import Time
 
 Base = declarative_base()
 
 
-class OperationType(Enum):
-    download = 1
-    upload = 2
-    move = 3
-    delete = 4
-
-
 class Account(Base):
     __tablename__ = 'accounts'
 
-    id = Column(String, primary_key=True)
+    email = Column(String, primary_key=True)
+    type = Column(String, primary_key=True)
     name = Column(String, nullable=False)
-    email = Column(String, nullable=False)
     local_root = Column(String, nullable=False)
     selective_enabled = Column(Boolean, nullable=False)
     selective_partial_new = Column(Boolean, nullable=False)
@@ -32,10 +24,16 @@ class Account(Base):
     usage = Column(Integer, nullable=False)
     usage_in_drive = Column(Integer, nullable=False)
     max_upload_size = Column(Integer, nullable=False)
+    max_import_size = Column(Integer)
     last_changes_seen_flag = Column(String, nullable=False)
     connection_handler = None
     import_types_map = dict()
     export_types_map = dict()
+
+    __mapper_args__ = {
+        'polymorphic_identity': 'account',
+        'polymorphic_on': type
+    }
 
     def connect(self) -> None:
         pass
@@ -73,6 +71,9 @@ class Account(Base):
     def initial_sync(self) -> None:
         pass
 
+    def __repr__(self):
+        return u"<Account_{0:s}(id='{1:s}', email='{2:s}')>".format(self.type, self.id, self.email)
+
     @staticmethod
     def checksum_function(path: Union[Path, str]) -> str:
         pass
@@ -85,18 +86,11 @@ class Account(Base):
 class AccountFile(Base):
     __tablename__ = 'accountfiles'
 
-    __table_args__ = (
-        Index('account_file_id_idx', 'account_id', 'file_account_id', unique=True),
-        ForeignKeyConstraint(
-            ['account_id', 'file_account_parent_id'],
-            ['accountfiles.account_id', 'accountfiles.file_account_id']
-        )
-    )
-
-    account_id = Column(String, ForeignKey('accounts.id'), primary_key=True)
-    file_local_path = Column(String, primary_key=True)
-    file_account_id = Column(String, nullable=False)
+    account_email = Column(String, primary_key=True)
+    account_type = Column(String, primary_key=True)
+    file_account_id = Column(String, primary_key=True)
     file_account_parent_id = Column(String)
+    file_local_path = Column(String, nullable=False)
     file_remote_hash = Column(String)
     file_remote_mime = Column(String, nullable=False)
     file_remote_modified_time = Column(Time, nullable=False)
@@ -104,5 +98,18 @@ class AccountFile(Base):
     file_remote_version = Column(Integer, nullable=False)
     ignore = Column(Boolean, nullable=False)
 
+    __table_args__ = (
+        Index('account_file_id_idx', 'account_email', 'account_type', 'file_local_path', unique=True),
+        ForeignKeyConstraint(
+            ['account_email', 'account_type', 'file_account_parent_id'],
+            ['accountfiles.account_email', 'accountfiles.account_type', 'accountfiles.file_account_id']
+        ),
+        ForeignKeyConstraint(
+            ['account_email', 'account_type'],
+            ['accounts.email', 'accounts.type']
+        )
+    )
+
     account = relationship('Account', back_ref='files')
-    parent = relationship('AccountFile', back_ref='children', remote_side=[account_id, file_account_id])
+    parent = relationship('AccountFile', back_ref='children',
+                          remote_side=[account_email, account_type, file_account_id])

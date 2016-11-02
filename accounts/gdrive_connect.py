@@ -21,7 +21,7 @@ SCOPES = ['https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/a
           'https://www.googleapis.com/auth/drive.photos.readonly', 'https://www.googleapis.com/auth/drive.readonly']
 CLIENT_SECRET_FILE = 'gdrive_id.json'
 APPLICATION_NAME = 'OmniSync'
-CREDENTIAL_DIR = constants.BASE_CREDENTIAL_DIR / 'gdrive'
+CREDENTIAL_DIR = constants.OMNISYNC_BASE_CRED_DIR / 'gdrive'
 
 
 def authenticate(account: GDrive = None) -> GDrive:

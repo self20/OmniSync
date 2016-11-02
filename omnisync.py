@@ -8,7 +8,7 @@ from workers.pool import Pool
 
 
 def load_config():
-    constants.OMNISYNC_DIR.mkdir(exist_ok=True)
+    constants.OMNISYNC_CFG_DIR.mkdir(exist_ok=True)
     cfg_table = GlobalAccessor.get_db().get_table('config', primary_type='String')
     down_limit_cfg = cfg_table.find_one(id='down_limit_cfg').get('value')
     up_limit_cfg = cfg_table.find_one(id='up_limit_cfg').get('value')
@@ -27,7 +27,7 @@ def load_config():
 
 
 def load_database():
-    db_path = constants.OMNISYNC_DIR / 'omnisync.db'
+    db_path = constants.OMNISYNC_CFG_DIR / 'omnisync.db'
     if not db_path.is_file():
         subprocess.call(['sqlite3', str(db_path), '".databases"'])
     GlobalAccessor.set_db(dataset.connect('sqlite:///' + str(db_path)))

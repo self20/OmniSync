@@ -1,4 +1,13 @@
-from accounts.mappings import Account, AccountFile, OperationType
+from enum import Enum
+
+from accounts.mappings import Account, AccountFile
+
+
+class OperationType(Enum):
+    download = 1
+    upload = 2
+    move = 3
+    delete = 4
 
 
 class Task:
