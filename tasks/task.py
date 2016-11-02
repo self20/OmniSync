@@ -1,6 +1,6 @@
 from enum import Enum
 
-from accounts.mappings import Account, AccountFile
+from accounts.mapping import Account, AccountFile
 
 
 class OperationType(Enum):
