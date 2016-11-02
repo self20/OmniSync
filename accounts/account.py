@@ -1,6 +1,10 @@
+from sqlalchemy import Column, Integer, String, Boolean
 from enum import Enum
 from pathlib import Path
 from typing import List
+from sqlalchemy.ext.declarative import declarative_base
+
+Base = declarative_base()
 
 
 class OperationType(Enum):
@@ -10,21 +14,23 @@ class OperationType(Enum):
     delete = 4
 
 
-class Account:
-    def __init__(self, ident: str, email: str, local_root: Path):
-        self.name = None
-        self.ident = ident
-        self.email = email
-        self.local_root = local_root
-        self.selective = {"enabled": False, "new_partial": False, "tree": None}
-        self.operation_dic = assemble_op_map(self)
-        self.folder_mime_type = None
-        self.capacity = 0
-        self.usage = 0
-        self.usage_in_drive = 0
-        self.max_upload_size = 0
-        self.connection_handler = None
-        self.last_changes_seen_flag = None
+class Account(Base):
+    __tablename__ = 'accounts'
+
+    id = Column(String, primary_key=True)
+    name = Column(String)
+    email = Column(String)
+    local_root = Column(String)
+    selective_enabled = Column(Boolean)
+    selective_partial_new = Column(Boolean)
+    folder_mime_type = Column(String)
+    capacity = Column(Integer)
+    usage = Column(Integer)
+    usage_in_drive = Column(Integer)
+    max_upload_size = Column(Integer)
+    last_changes_seen_flag = Column(String)
+    ignore_list =
+    connection_handler = None
 
     def connect(self) -> None:
         pass
