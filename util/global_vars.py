@@ -4,7 +4,7 @@ from accounts.mapping import Config
 from tasks.task_queue import TaskQueue
 from workers.pool import Pool
 
-_db = None
+_db_session = None
 _max_up = None
 _max_down = None
 _max_conn = None
@@ -15,13 +15,13 @@ _pool = None
 class GlobalAccessor:
 
     @staticmethod
-    def set_db(db: Session):
-        global _db
-        _db = db
+    def set_db_session(db_session: Session):
+        global _db_session
+        _db_session = db_session
 
     @staticmethod
-    def get_db() -> Session:
-        return _db
+    def get_db_session() -> Session:
+        return _db_session
 
     @staticmethod
     def set_max_up(max_up: Config):

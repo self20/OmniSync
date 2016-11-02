@@ -15,7 +15,7 @@ Session = sessionmaker()
 
 def load_config():
     constants.OMNISYNC_CFG_DIR.mkdir(exist_ok=True)
-    session = GlobalAccessor.get_db()
+    session = GlobalAccessor.get_db_session()
     cfg_map = {item.name: item for item in session.query(Config)}
     # writing default config if current doesn't exist or is incosistent
     if cfg_map.get('down_limit') is None or cfg_map.get('up_limit') is None or cfg_map.get('max_conn') is None:
@@ -41,7 +41,7 @@ def load_database():
     engine = create_engine('sqlite:///' + str(db_path), echo=True)
     Base.metadata.create_all(bind=engine)
     Session.configure(bind=engine)
-    GlobalAccessor.set_db(Session())
+    GlobalAccessor.set_db_session(Session())
 
 
 def initialize():
@@ -55,10 +55,12 @@ if __name__ == "__main__":
     load_config()
     initialize()
 
-    accounts_table = GlobalAccessor.get_db().query(Account)
-    for account in accounts_table:
+    session = accounts_table = GlobalAccessor.get_db_session()
+
+    for account in session.query(Account):
         account.connect()
-        accounts_table.update(account, ['ident'])
+
+    session.commit()
 
     time.sleep(5)
 
