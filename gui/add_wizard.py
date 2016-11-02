@@ -20,7 +20,7 @@ class Ui_add_wizard(object):
         add_wizard.setMinimumSize(QtCore.QSize(640, 480))
         add_wizard.setMaximumSize(QtCore.QSize(640, 480))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("omnisync.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("../icons/omnisync.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         add_wizard.setWindowIcon(icon)
         add_wizard.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         add_wizard.setModal(True)

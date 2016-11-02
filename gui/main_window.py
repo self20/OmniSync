@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'OmniSync.ui'
+# Form implementation generated from reading ui file 'main_window.ui'
 #
 # Created by: PyQt5 UI code generator 5.7
 #
@@ -21,7 +21,7 @@ class Ui_MainWindow(object):
         MainWindow.setMaximumSize(QtCore.QSize(800, 600))
         MainWindow.setBaseSize(QtCore.QSize(800, 600))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("omnisync.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("../icons/omnisync.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
@@ -57,7 +57,7 @@ class Ui_MainWindow(object):
         self.status_tab.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.status_tab.setObjectName("status_tab")
         self.status_progress = QtWidgets.QProgressBar(self.status_tab)
-        self.status_progress.setGeometry(QtCore.QRect(20, 480, 761, 23))
+        self.status_progress.setGeometry(QtCore.QRect(20, 480, 751, 23))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -248,7 +248,7 @@ class Ui_MainWindow(object):
         self.groupBox.setFlat(False)
         self.groupBox.setObjectName("groupBox")
         self.formLayoutWidget_2 = QtWidgets.QWidget(self.groupBox)
-        self.formLayoutWidget_2.setGeometry(QtCore.QRect(150, 30, 461, 151))
+        self.formLayoutWidget_2.setGeometry(QtCore.QRect(150, 30, 466, 151))
         self.formLayoutWidget_2.setObjectName("formLayoutWidget_2")
         self.formLayout_2 = QtWidgets.QFormLayout(self.formLayoutWidget_2)
         self.formLayout_2.setSizeConstraint(QtWidgets.QLayout.SetMinAndMaxSize)
@@ -329,7 +329,7 @@ class Ui_MainWindow(object):
         self.label.setBaseSize(QtCore.QSize(0, 0))
         self.label.setText("")
         self.label.setTextFormat(QtCore.Qt.AutoText)
-        self.label.setPixmap(QtGui.QPixmap("omnisync.svg"))
+        self.label.setPixmap(QtGui.QPixmap("../icons/omnisync.svg"))
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.horizontalLayout_3.addWidget(self.label)

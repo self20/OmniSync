@@ -39,7 +39,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>omnisync.svg</normaloff>omnisync.svg</iconset>
+    <normaloff>../icons/omnisync.svg</normaloff>../icons/omnisync.svg</iconset>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
@@ -102,7 +102,7 @@
           <rect>
            <x>20</x>
            <y>480</y>
-           <width>761</width>
+           <width>751</width>
            <height>23</height>
           </rect>
          </property>
@@ -514,7 +514,7 @@
            <rect>
             <x>150</x>
             <y>30</y>
-            <width>461</width>
+            <width>466</width>
             <height>151</height>
            </rect>
           </property>
@@ -696,7 +696,7 @@
                <enum>Qt::AutoText</enum>
               </property>
               <property name="pixmap">
-               <pixmap>omnisync.svg</pixmap>
+               <pixmap>../icons/omnisync.svg</pixmap>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>

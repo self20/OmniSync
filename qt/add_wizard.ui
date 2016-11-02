@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>omnisync.svg</normaloff>omnisync.svg</iconset>
+    <normaloff>../icons/omnisync.svg</normaloff>../icons/omnisync.svg</iconset>
   </property>
   <property name="locale">
    <locale language="English" country="UnitedStates"/>
