@@ -16,9 +16,9 @@ Session = sessionmaker()
 def load_config():
     constants.OMNISYNC_CFG_DIR.mkdir(exist_ok=True)
     session = GlobalAccessor.get_db()
-    cfg_map = {item.name: item.value for item in session.query(Config)}
+    cfg_map = {item.name: item for item in session.query(Config)}
     # writing default config if current doesn't exist or is incosistent
-    if not cfg_map.get('down_limit') or not cfg_map.get('up_limit') or not cfg_map.get('max_conn'):
+    if cfg_map.get('down_limit') is None or cfg_map.get('up_limit') is None or cfg_map.get('max_conn') is None:
         down_limit_cfg = Config(name='down_limit', value=0)
         up_limit_cfg = Config(name='up_limit', value=0)
         max_conn_cfg = Config(name='max_conn', value=4)

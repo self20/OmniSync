@@ -31,7 +31,7 @@ class Config(Base):
     value = Column(Integer)
 
     def __repr__(self):
-        return "<Config(id='{0:s}', value='{1:s}')>".format(self.name, self.value)
+        return "<Config(id='{0!s}', value='{1!s}')>".format(self.name, self.value)
 
 
 class Account(Base):
@@ -98,7 +98,7 @@ class Account(Base):
         pass
 
     def __repr__(self):
-        return u"<Account_{0:s}(id='{1:s}', email='{2:s}')>".format(self.type, self.id, self.email)
+        return u"<Account_{0!s}(id='{1!s}', email='{2!s}')>".format(self.type, self.id, self.email)
 
     @staticmethod
     def authenticate(account):
