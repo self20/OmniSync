@@ -1,4 +1,4 @@
-from multiprocessing import Event, get_context, Queue
+from multiprocessing import Event, get_context
 from multiprocessing.queues import Queue
 
 from tasks.task import Task
